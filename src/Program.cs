@@ -12,7 +12,7 @@ namespace csCoreTest
            string source = "Hello World!";
            string result = new string(source.Select(n => n == ' ' ? '\t' : n).ToArray());
 
-            File.WriteAllText("tmpFile",new string(File.ReadAllText("testfile").Select(n => n == ' ' ? '\t' : n).ToArray()),Encoding.UTF8);
+            File.WriteAllText("tmpFile",new string(File.ReadAllText("tmpFile").Select(n => n == ' ' ? '\t' : n).ToArray()),Encoding.UTF8);
            
             Console.WriteLine(result);
         }
