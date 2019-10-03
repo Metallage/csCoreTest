@@ -6,30 +6,34 @@ using System.Linq;
 
 namespace csCoreTest
 {
-    public class Core
+    public class Core : IChanger
     {
-        private void ChangeTab(string fileName)
+
+        private static Core instance;
+
+        public Core()
+        {            
+        }
+
+        public static Core GetInstance()
         {
-            
-            using (FileStream fs = File.OpenWrite(fileName))
-            {
-                byte[] b = new byte[1024];
-                UTF8Encoding temp = new UTF8Encoding(true);
-                while (fs.Read(b,0,b.Length) > 0)
-                {
-                    string tmpString=temp.GetString(b);
-                }
-            }
-            
+            if (Core.instance == null)
+                return  new Core();
+            else
+                return instance;
+        }
+
+
+        public void ChangeChar(string file, char whatChange, char newValue) => Change(file, whatChange, newValue);
+
+
+        private void Change(string file, char whatChange, char newValue)
+        {
+            File.WriteAllText(file, new string(File.ReadAllText(file).Select(n => n == whatChange ? newValue : n).ToArray()), Encoding.UTF8);
 
         }
 
-        private string FindTab(string tmpString)
-        {
-
-            return new string(tmpString.Select(n => n == ' ' ? '\t' : n).ToArray());
-        }
-
+  
 
     }
 }

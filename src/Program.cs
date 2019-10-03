@@ -9,12 +9,19 @@ namespace csCoreTest
     {
         static void Main(string[] args)
         {
-           string source = "Hello World!";
-           string result = new string(source.Select(n => n == ' ' ? '\t' : n).ToArray());
+            //string source = "Hello World!";
+            //string result = new string(source.Select(n => n == ' ' ? '\t' : n).ToArray());
 
-            File.WriteAllText("tmpFile",new string(File.ReadAllText("tmpFile").Select(n => n == ' ' ? '\t' : n).ToArray()),Encoding.UTF8);
-           
-            Console.WriteLine(result);
+            // File.WriteAllText("tmpFile",new string(File.ReadAllText("tmpFile").Select(n => n == ' ' ? '\t' : n).ToArray()),Encoding.UTF8);
+
+            // Console.WriteLine(result);
+
+            string fileName = "testFile";
+            char whatToChange = ' ';
+            char newValue = '\t';
+
+            Core changer = Core.GetInstance();
+            changer.ChangeChar(fileName, whatToChange, newValue);
         }
     }
 }
