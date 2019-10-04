@@ -18,9 +18,9 @@ namespace csCoreTest
         public static Core GetInstance()
         {
             if (Core.instance == null)
-                return  new Core();
-            else
-                return instance;
+                instance =  new Core();
+            
+            return instance;
         }
 
 
