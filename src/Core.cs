@@ -29,7 +29,7 @@ namespace csCoreTest
 
         private void Change(string file, char whatChange, char newValue)
         {
-            File.WriteAllText(file, new string(File.ReadAllText(file).Select(n => n == whatChange ? newValue : n).ToArray()), Encoding.UTF8);
+            File.WriteAllText(file, new string(File.ReadAllText(file,Encoding.Default).Select(n => n == whatChange ? newValue : n).ToArray()), Encoding.Default);
 
         }
 
