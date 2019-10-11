@@ -5,9 +5,9 @@ import subprocess #импорт модуля запуска сторонних �
 import argparse #импорт модуля работы с аргументами
 
 #текст для преобразования
-testText = 'AS as'
+testText = 'AS as\nza za \n112 332'
 #контрольный текст
-controlText = 'AS\tas'
+controlText = 'AS\tas\nza\tza\t\n112\t332'
 #команда на вызов тестируемого проекта
 cmd = ["dotnet", "run", "--project"]
 
@@ -28,22 +28,27 @@ def WriteToFile(filePath, text):
 def ControlRead(filePath, controlText):
     controlFile = open(filePath, "r")
     tmpText = controlFile.read()
-    print(tmpText)
-    print(controlText)
     return tmpText == controlText
 
-
+#точка входа в скрипт
 if __name__ == "__main__":
 
+    #тут распарсиваем входные параметры
     parser = CreateParser()
     namespace = parser.parse_args(sys.argv[1:])
     testFilePath = namespace.testfile
     pathToProject = namespace.project
     
+    #пишем тестовый файл и передаём его тестируемому приложению
     WriteToFile(testFilePath , testText)
     cmd +=[pathToProject, testFilePath]
     process = subprocess.Popen(cmd)
     process.wait()
 
+    #проверяем результат
     testPassed = ControlRead(testFilePath, controlText)
-    print(testPassed)
+    if testPassed:
+        print("Test passed")
+    else:
+        print("Test FAILED!!!")
+    
